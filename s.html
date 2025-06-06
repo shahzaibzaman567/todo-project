@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Loading Spinner with Bootstrap & Animate.css</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+
+<!-- Loading div -->
+<div id="loading" class="d-flex justify-content-center align-items-center position-fixed top-0 start-0 vw-100 vh-100 bg-white" style="z-index: 1050;">
+  <div class="spinner-border text-primary animate__animated animate__pulse" role="status" style="width: 5rem; height: 5rem;">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- اصلی مواد -->
+<div id="content" style="display:none; padding: 20px;">
+  <h1>خوش آمدید!</h1>
+  <p>یہ تمہارا اصلی صفحہ ہے۔</p>
+</div>
+
+<script>
+ window.onload = function() {
+    const loadingDiv = document.getElementById("loading");
+    const contentDiv = document.getElementById("content");
+
+    // جب لوڈ ہو جائے تب کا وقت لے لو
+    const loadEndTime = Date.now();
+
+    // فرض کرو لوڈنگ شروع ہونے کا وقت پہلے سے معلوم ہے (مثلاً page start کا وقت)
+    // یہاں میں نے اسے 0 فرض کیا ہے، تم اپنی ضرورت کے مطابق لوڈنگ شروع کا وقت لے سکتے ہو
+    const loadStartTime = window.loadStartTime || 0;
+
+    // کم از کم 2 سیکنڈ (2000ms) لوڈنگ دکھاؤ گے
+    const minLoadingTime = 2000;
+
+    // ابھی کتنا وقت گزر چکا؟
+    const timeElapsed = loadEndTime - loadStartTime;
+
+    // باقی کتنا وقت wait کرنا ہے
+    const waitTime = Math.max(minLoadingTime - timeElapsed, 0);
+
+    // Animate out اور hide کرنے کا کام اس وقت کرو
+    setTimeout(() => {
+        loadingDiv.classList.add("animate__fadeOut");
+        setTimeout(() => {
+            loadingDiv.style.display = "none";
+            contentDiv.style.display = "block";
+        }, 500);  // fadeOut animation کی مدت (آدھا سیکنڈ)
+    }, waitTime);
+};
+window.loadStartTime = Date.now();
+  
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"
+integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D"
+crossorigin="anonymous"></script>
+
+</body>
+</html>
