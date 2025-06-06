@@ -1,5 +1,5 @@
 let form = document.querySelector("#form");
-
+//oN Submit file while starting tis program. 
 form.addEventListener("submit", (event) => {
   event.preventDefault()
   let uemail = {

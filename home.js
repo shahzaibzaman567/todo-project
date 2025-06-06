@@ -1,33 +1,32 @@
-
-
 let form = document.querySelector("#form");
 let id = document.querySelector("#id");
-let userid = id.value.trim();
-let div = document.querySelector("#container");
+let div = document.querySelector(".container");
 let uemail = JSON.parse(localStorage.getItem("useremail"));
-let allid=uemail.find((id)=>id.id===1);
-
+console.log(uemail)
 // console.log(allid)
-
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
-    
-    setTimeout(()=>{
-        filtertodo = usertodo.find((tod) => tod.userId === userid);
-        console.log(filtertodo.userId);
-    },2000);
-setTimeout(()=>{
- if (userid === filtertodo.userId) {
-        
-        let todos = filtertodo.map(t => t.id, t.title, t.conmpleted);
-        console.log(todos);
+    let userid = id.value.trim();
+    let  filtertodo = usertodo.filter((tod) => tod.id === Number(userid));
+    let singleid = usertodo.find(t => t.id === Number(userid));
+    let singleId = uemail.find(t => t.id === Number(userid));
+    //  console.log(singleid.id)
+    //  console.log(filtertodo[0]?.userId);
 
-        div.innerHTML = `(${todos}`;
 
-};
-if (userid !== filtertodo) {
-    alert("Please enter your vailed ID");
-};
-},3000)
+     let i=1;
+
+        if (singleid.userId === Number(userid) && singleId.id ===singleid.userId ) {
+
+            let todos = filtertodo.map(t =>{ 
+                return `<p> ${[i++]}   ,      ${t.title}  ,    ( ${t.completed} )</P>`
+            }).join("   ");
+
+           div.innerHTML=`${todos}`;
+
+        }
+        else {
+            alert("Please enter your vailed ID");
+        };
 });
